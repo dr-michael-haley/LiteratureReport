@@ -21,6 +21,7 @@ COL_PMID = "pmid"
 COL_PAPER_TITLE = "title_pubmed"   # fallback to "title" if not present
 COL_AUTHOR = "search_author"
 COL_DATE = "firstPublicationDate"  # may be missing / partial date
+COL_DOI = "doi_pubmed"
 COL_CITES = "scholar_match_citations"
 COL_GOOGLE_URL = "scholar_match_url"   # raw url in source df
 COL_SNIPPET = "scholar_snippet"
@@ -258,7 +259,7 @@ else:
 # ------------------------------
 view_cols_html = []
 for c in [
-    COL_AUTHOR, "affil_group", COL_DATE,
+    COL_AUTHOR, COL_DOI, "affil_group", COL_DATE,
     COL_PAPER_TITLE, "Google Link", "PubMed Link",
     COL_SNIPPET, COL_TERMS_FOUND, COL_VIA, COL_CITES
 ]:
@@ -277,7 +278,7 @@ for col in table_df_html.columns:
         continue
     table_df_html[col] = table_df_html[col].map(esc)
 
-table_html = table_df_html.to_html(index=False, escape=False)
+table_html = table_df_html.to_html(index=True, escape=False)
 
 # ------------------------------
 # Build CSV for user annotation
@@ -285,7 +286,7 @@ table_html = table_df_html.to_html(index=False, escape=False)
 # Use plain snippet (no <mark>), and include raw URLs + add Claim/Notes columns
 view_cols_csv = []
 for c in [
-    COL_AUTHOR, "affil_group", COL_DATE,
+    COL_AUTHOR, COL_DOI, "affil_group", COL_DATE,
     COL_PAPER_TITLE, "google_url", "pubmed_url",  # RAW URL columns
     COL_SNIPPET, COL_TERMS_FOUND, COL_VIA, COL_CITES
 ]:
@@ -297,7 +298,7 @@ csv_df["Claim"] = ""
 csv_df["Notes"] = ""
 
 csv_output = Path(OUTPUT_HTML).with_suffix(".csv")
-csv_df.to_csv(csv_output, index=False)
+csv_df.to_csv(csv_output, index=True)
 print(f"📝 Base table saved for annotation → {csv_output}")
 
 # Per-author & per-affiliation tables (HTML)
