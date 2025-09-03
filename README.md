@@ -17,7 +17,7 @@ This project finds papers for a list of authors, enriches them with PubMed metad
    - matching result link, citations, snippet, and which search terms appear in the snippet.
 5. Normalize affiliations (e.g., `"12 Biological Physics Group, …"` → `"Biological Physics Group"`) and compute per‑author and per‑affiliation metrics.
 6. Generate outputs:
-   - A searchable HTML report with charts and highlighted terms in snippets.
+   - A searchable HTML report with charts, highlighted terms in snippets, and the ability to annotate entries with a dropdown box.
    - A companion CSV (same table) with blank `Claim` and `Notes` columns for you to fill in.
    - The pipeline also saves intermediate CSVs along the way.
 
@@ -99,6 +99,10 @@ AFFILIATION_FILTERS=Manchester,Oxford
 
 # Search terms to look for on Google Scholar search
 SCHOLAR_TERMS=inflammation,malaria,imaging
+
+# Drop down options for the report
+STATUS_COLUMN=Acknowledgement
+STATUS_OPTIONS=Acknowledged,Authorship,Used without acknowledgement,Not used
 
 ########### Other options, only really used for debugging
 
